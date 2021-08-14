@@ -1,0 +1,20 @@
+﻿@page "/getdata"
+@inject HttpClient Http
+
+<h3>Get D4H Data</h3>
+
+@code {
+
+    protected override async Task OnInitializedAsync()
+    {
+        Http.BaseAddress = new Uri("https://api.ca.d4h.org/v2");
+        Http.DefaultRequestHeaders.Add("Authorization", "Bearer 79ec4b676043857fc54bed46e5074d5fac7aa939");
+        var data = await Http.GetAsync("/team");
+
+        //https://api.d4h.org/v2/team/members
+        // https://api.ca.d4h.org/v2/documentation#operation/getTeamMembers
+        var members = await Http.GetAsync("/team/members");
+
+        var logo = await Http.GetAsync("/team/image");
+    }
+}
